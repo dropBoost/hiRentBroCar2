@@ -5,7 +5,7 @@ import Image from "next/image"
 export default function Gestionale () {
     return (
         <>
-        <div className="grid grid-cols-12 grid-rows-12 h-screen w-screen p-5 justify-center items-center">
+        <div className="grid grid-cols-12 grid-rows-12 h-screen w-screen md:p-5 p-0 justify-center items-center">
             <div className="col-span-12 row-span-1 col-start-1 row-start-1 h-[100%] bg-brand-500 p-5 flex lg:items-center lg:justify-start md:items-center md:justify-center items-center justify-center">
             <Image src={logoExtendedFullLight} width={150} height={150} alt={`logo-${companyName}`}/>
             </div>
