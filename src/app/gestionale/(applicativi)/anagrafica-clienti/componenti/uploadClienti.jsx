@@ -6,12 +6,14 @@ import { faCarSide, faCirclePlus, faArrowRight, faUser } from '@fortawesome/free
 import { supabase } from '@/lib/supabaseClient'
 import comuni from '@/app/gestionale/components/comuni.json'
 
-export default function UploadClienti() {
+export default function UploadClienti(props) {
 
     const iconaAuto = <FontAwesomeIcon className="me-2 text-brand-500" icon={faCarSide} />
     const iconaPlus = <FontAwesomeIcon icon={faCirclePlus} />
     const ICONarrowRight = <FontAwesomeIcon icon={faArrowRight} />
     const ICONuser = <FontAwesomeIcon icon={faUser} className='text-brand-500'/>
+
+    const onDisplayUploadCustomer = props.onDisplayUploadCustomer
 
      const [cliente, setCliente] = useState({
       nome: '',
@@ -143,6 +145,7 @@ export default function UploadClienti() {
   }
 
   return (
+    <div className={`w-full h-[70vh] overflow-auto ${onDisplayUploadCustomer == "on" ? "" : "hidden"}`}>
     <form onSubmit={handleSubmit} className="ps-2 pe-8 py-4 space-y-6 ">
       <header className="flex items-center justify-between">
         <h2 className="text-xs font-extrabold text-neutral-300 flex flex-row items-start gap-2">
@@ -228,6 +231,7 @@ export default function UploadClienti() {
           <InputText label="EMAIL" name="email" value={cliente.email} onChange={handleChange} colSpan="lg:col-span-1 uppercase" />
         </div>
     </form>
+    </div>
   )
 }
 

@@ -37,7 +37,7 @@ export default function GESTIONALEParcoAuto () {
             {onDisplayUploadCar === "off" ? <span className='text-brand-500 flex items-center border rounded-2xl border-brand-500 px-3 py-1'>{ICONToggleOff} <font className="text-sm ms-2 font-bold" >Carica Veicoli</font></span> : <span className='text-neutral-100 flex items-center border rounded-2xl border-brand-500 px-3 py-1'>{ICONToggleOn} <font className="text-sm ms-2 font-bold" >Parco Veicoli</font></span>}
             </button>
           </div>
-          <div className="flex items-start p-5 justify-center lg:col-span-12 col-span-12 col-start-1 lg:row-span-11 row-span-11 row-start-2 h-full bg-neutral-800/50 rounded-2xl">
+          <div className="flex items-start lg:p-5 p-4 pe-5 justify-center lg:col-span-12 col-span-12 col-start-1 lg:row-span-11 row-span-11 row-start-2 h-full bg-neutral-800/50 rounded-2xl">
             <div className={`w-full lg:h-[70vh] md:h-[65vh] h-[60vh] overflow-auto ${onDisplayUploadCar ==="off" ? "" : "hidden"}`}>
               <UploadCar/>
             </div>

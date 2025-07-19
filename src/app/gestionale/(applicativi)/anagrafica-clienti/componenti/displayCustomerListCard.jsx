@@ -19,9 +19,9 @@ export default function CustomerListCard(props) {
   } = props
 
   return (
-    <div className="flex xl:flex-row flex-col w-full border border-neutral-800 rounded-xl p-2">
+    <div className="flex xl:flex-row flex-col border border-neutral-800 rounded-xl p-2">
       {/* DETTAGLI */}
-      <div className="flex flex-col justify-center xl:px-4 px-2 text-xs w-full h-full text-neutral-400">
+      <div className="flex flex-col justify-center xl:px-4 px-2 text-xs w-full text-neutral-400">
         <div className="flex flex-col gap-2 2xl:flex-row 2xl:items-center 2xl:justify-between justify-start mb-2 ">
           {/* NOME */}
           <div className="border border-brand-500 rounded-md text-neutral-300 w-fit px-3 py-1">
