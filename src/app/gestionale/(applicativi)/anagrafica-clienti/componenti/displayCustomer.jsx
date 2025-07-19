@@ -48,25 +48,25 @@ export default function DisplayCustomer (props) {
               <table className="min-w-full divide-y divide-gray-200">
                 <thead className="bg-neutral-950">
                   <tr>
-                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th scope="col" className="px-6 py-3 text-left text-xs font-extrabold text-neutral-500 uppercase tracking-wider">
                       Nome
                     </th>
-                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th scope="col" className="px-6 py-3 text-left text-xs font-extrabold text-neutral-500 uppercase tracking-wider">
                       Cognome
                     </th>
-                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th scope="col" className="px-6 py-3 text-left text-xs font-extrabold text-neutral-500 uppercase tracking-wider">
                       Email
                     </th>
-                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th scope="col" className="px-6 py-3 text-left text-xs font-extrabold text-neutral-500 uppercase tracking-wider">
                       Telefono
                     </th>
-                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th scope="col" className="px-6 py-3 text-left text-xs font-extrabold text-neutral-500 uppercase tracking-wider">
                       SCADENZA PATENTE
                     </th>                    
-                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th scope="col" className="px-6 py-3 text-center text-xs font-extrabold text-neutral-500 uppercase tracking-wider">
                       SC
                     </th>
-                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th scope="col" className="px-6 py-3 text-center text-xs font-extrabold text-neutral-500 uppercase tracking-wider">
                       ELIMINA
                     </th>
                   </tr>
