@@ -42,10 +42,10 @@ export const socialLink = [
   ]
 
 export const moduliGestionale = [
-    {name:'dashboard', link:'./dashboard', linkActive:'dashboard', icon: ICONdashboard, attivo:'true'},
-    {name:'anagraficaClienti', link:'./anagrafica-clienti', linkActive:'anagrafica-clienti', icon: ICONusers, attivo:'true'},
-    {name:'redazioneContratti', link:'./redazione-contratti', linkActive:'redazione-contratti', icon:ICONredazioneContratti, attivo:'true'},
-    {name:'archivioContratti', link:'./archivio-contratti', linkActive:'archivio-contratti', icon: ICONarchivioContratti, attivo:'true'},
-    {name:'calendario', link:'./calendario',  linkActive:'calendario', icon:ICONcalendario, attivo:'true'},
-    {name:'parcoAuto', link:'./parco-auto', linkActive:'parco-auto', icon: ICONparcoAuto, attivo:'true'},
+    {name:'dashboard', link:'./dashboard', linkActive:'dashboard', icon: ICONdashboard, label:'dashboard', attivo:'true'},
+    {name:'anagraficaClienti', link:'./anagrafica-clienti', linkActive:'anagrafica-clienti', icon: ICONusers, label:'anagrafica clienti', attivo:'true'},
+    {name:'redazioneContratti', link:'./redazione-contratti', linkActive:'redazione-contratti', icon:ICONredazioneContratti, label:'redazione contratti', attivo:'true'},
+    {name:'archivioContratti', link:'./archivio-contratti', linkActive:'archivio-contratti', icon: ICONarchivioContratti, label:'archivio contratti', attivo:'true'},
+    {name:'calendario', link:'./calendario',  linkActive:'calendario', icon:ICONcalendario, label:'calendario', attivo:'true'},
+    {name:'parcoAuto', link:'./parco-auto', linkActive:'parco-auto', icon: ICONparcoAuto, label:'parco auto', attivo:'true'},
   ]

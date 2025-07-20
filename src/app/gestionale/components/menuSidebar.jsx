@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCamera, faCloud, faCalendarWeek, faUser, faCirclePlus, faFileZipper  } from '@fortawesome/free-solid-svg-icons';
+import { faCamera, faCloud, faCalendarWeek, faUser, faCirclePlus, faFileZipper, faHome  } from '@fortawesome/free-solid-svg-icons';
 import { moduliGestionale } from '@/app/cosetting';
 
 const iconaDashboard = <FontAwesomeIcon icon={faCloud} className='max-h-[15px]' />
@@ -12,6 +12,7 @@ const iconaGestioneFoto = <FontAwesomeIcon icon={faCamera}  className='max-h-[15
 const iconaRedazionePreventivi = <FontAwesomeIcon icon={faCirclePlus} className='max-h-[15px]'  />
 const iconaAgendaEventi = <FontAwesomeIcon icon={faCalendarWeek} className='max-h-[15px]'  />
 const iconaClienti = <FontAwesomeIcon icon={faUser} className='max-h-[15px]'  />
+const iconaHome = <FontAwesomeIcon icon={faHome} className='max-h-[15px]'  />
 
 export default function MenuSidebar () {
 
@@ -22,6 +23,17 @@ export default function MenuSidebar () {
 
   return (
       <ul className="flex flex-row md:flex-col gap-2">
+        <li>
+          <Link
+            href={`/gestionale`}
+            title={`HOME GESTIONALE`}
+            className={`flex items-center justify-center rounded-full p-2 md:h-[40px] md:w-[40px] h-[30px] w-[30px] transition duration-700 ${
+              isActive(`/gestionale`) ? 'bg-brand-500 text-neutral-100' : 'bg-neutral-100 text-brand-500 hover:bg-brand-500 hover:text-neutral-200'
+            }`}
+          >
+            {iconaHome}
+          </Link>
+        </li>
         {moduliGestionale.filter(moduli => moduli.attivo == "true").map(modulo=>(
           <li key={modulo.name}>
           <Link

@@ -19,61 +19,17 @@ export default function HomeGestionale () {
   const isActive = (path) => pathname === path;
 
   return (
-      <div className="flex w-full flex-wrap flex-row justify-start items-center md:flex-row gap-4 p-5">
-        <div>
-          <Link
-            href="./gestionale/dashboard"
+      <div className="grid xl:grid-cols-8 grid-cols-2 h-full flex-wrap md:justify-start justify-center items-center md:flex-row gap-4 p-5 bg-neutral-950">
+          {moduliGestionale.filter(moduli => moduli.attivo === "true").map((modulo,index) => (
+          <Link key={index}
+            href={`/gestionale/${modulo.linkActive}`}
             className={`flex items-center flex-col justify-center rounded-[1.5rem] p-2 h-[200px] w-[200px] transition duration-700 ${
-              isActive('/gestionale/dashboard') ? 'bg-brand-500' : 'bg-white text-brand-500 hover:bg-brand-500 hover:text-neutral-200'
+              isActive(`/gestionale/${modulo.linkActive}`) ? 'bg-brand-500' : 'bg-white text-brand-500 hover:bg-brand-500 hover:text-neutral-200'
             }`}>
-            {iconaDashboard}
-            <span className='mt-3 text-sm'>DASHBOARD</span>
+            <span className='text-[60px]'>{modulo.icon}</span>
+            <span className='mt-3 text-sm uppercase'>{modulo.label}</span>
           </Link>
-        </div>
-        <div>
-          <Link
-            href="./gestionale/agenda-eventi"
-            className={`flex items-center flex-col justify-center rounded-[1.5rem] p-2 h-[200px] w-[200px] transition duration-700 ${
-              isActive('/gestionale/dashboard') ? 'bg-brand-500' : 'bg-white text-brand-500 hover:bg-brand-500 hover:text-neutral-200'
-            }`}
-          >
-            {iconaAgendaEventi}
-            <span className='mt-3 text-sm'>AGENDA PRENOTAZIONI</span>
-          </Link>
-        </div>
-        <div>
-          <Link
-            href="./gestionale/clienti"
-            className={`flex items-center flex-col justify-center rounded-[1.5rem] p-2 h-[200px] w-[200px] transition duration-700 ${
-              isActive('/gestionale/dashboard') ? 'bg-brand-500' : 'bg-white text-brand-500 hover:bg-brand-500 hover:text-neutral-200'
-            }`}
-          >
-            {iconaClienti}
-            <span className='mt-3 text-sm'>CLIENTI</span>
-          </Link>
-        </div>
-        <div>
-          <Link
-            href="./gestionale/redazione-preventivi"
-            className={`flex items-center flex-col justify-center rounded-[1.5rem] p-2 h-[200px] w-[200px] transition duration-700 ${
-              isActive('/gestionale/dashboard') ? 'bg-brand-500' : 'bg-white text-brand-500 hover:bg-brand-500 hover:text-neutral-200'
-            }`}
-          >
-            {iconaRedazionePreventivi}
-            <span className='mt-3 text-sm'>AGGIUNGI PRENOTAZIONE</span>
-          </Link>
-        </div>
-        <div>
-          <Link
-            href="./gestionale/gestione-menu"
-            className={`flex items-center flex-col justify-center rounded-[1.5rem] p-2 h-[200px] w-[200px] transition duration-700 ${
-              isActive('/gestionale/dashboard') ? 'bg-brand-500' : 'bg-white text-brand-500 hover:bg-brand-500 hover:text-neutral-200'
-            }`}
-          >
-            {iconaGestioneMenu}
-            <span className='mt-3 text-sm'>GESTIONE MENU</span>
-          </Link>
-        </div>
+          ))}
       </div>
   );
 }
