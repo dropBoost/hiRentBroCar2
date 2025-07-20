@@ -135,7 +135,14 @@ const styles = StyleSheet.create({
   }
 });
 
-export default function ContractPDF(data) {
+export default function ContractPDF(
+  { UUID, cliente, secondoConducente, veicolo, dataUscita, dataEntrata, orarioEntrata, 
+    orarioUscita,comuneDiConsegna,provinciaDiConsegna, comuneDiRientro,provinciaDiRientro, 
+    casco,franchigia,tariffaGiornaliera }
+  ) {
+
+  const tariffa="50€"
+  
   return (
   <Document>
     <Page style={styles.page}>
@@ -145,10 +152,10 @@ export default function ContractPDF(data) {
       <View style={styles.headerDark}>
         <Text>CONTRATTO DI NOLEGGIO AUTOVEICOLI SENZA CONDUCENTE (D.P.R 481 DEL 2001)</Text>
         <Text style={styles.bodyTextContract}>
-            UUID: {data.UUID}
-          </Text>
+            UUID: {UUID}
+        </Text>
       </View>
-      <View style={styles.body}>
+     <View style={styles.body}>
         <View style={styles.bodyBorderAreaDark}>
           <Text style={styles.bodyTextTitle}>
             1. Intestatario del Contratto e conducente del veicolo
@@ -156,20 +163,20 @@ export default function ContractPDF(data) {
         </View>
         <View style={styles.bodyBorderArea}>
           <Text style={styles.bodyText}>
-            Io sottoscritto/a {data.nome} {data.cognome} nato/a a {data.luogoDiNascita} il {data.dataDiNascita} / codice fiscale: {data.codiceFiscale} e residente a {data.cittaResidenza} 
-            in {data.viaResidenza}, {data.civicoResidenza} con documento d'identità n° {data.numeroCartaIdentita} con scadenza il {data.scadenzaCartaIdentita} e patente
-            n° {data.numeroPatente} con scadenza il {data.scadenzaPatente} rilasciata da {data.enteRilascioPatente} sottoscrivo contratto di noleggio del
+            Io sottoscritto/a {cliente.nome} {cliente.cognome} nato/a a {cliente.luogoDiNascita} il {cliente.dataDiNascita} / codice fiscale: {cliente.codiceFiscale} e residente a {cliente.cittaResidenza} 
+            in {cliente.viaResidenza}, {cliente.civicoResidenza} con documento d'identità n° {cliente.numeroCartaIdentita} con scadenza il {cliente.scadenzaCartaIdentita} e patente
+            n° {cliente.numeroPatente} con scadenza il {cliente.scadenzaPatente} rilasciata da {cliente.entePatente} sottoscrivo contratto di noleggio del
             veicolo descritto al punto (2) del seguente documento.
           </Text>
         </View>
-        {data.nomeSecondoConducente ? (
+          {secondoConducente.nome ? (
           <View style={styles.bodyBorderArea}>
             <View>
               <Text style={styles.bodyText}>SECONDO CONDUCENTE:</Text>
             </View>
-            <Text style={styles.bodyText}>{data.nomeSecondoConducente} {data.cognomeSecondoConducente} nato/a a {data.luogoDiNascitaSecondoConducente} il {data.dataDiNascitaSecondoConducente} / codice fiscale: {data.codiceFiscaleSecondoConducente} e residente a {data.cittaResidenzaSecondoConducente} 
-            in {data.viaResidenzaSecondoConducente}, {data.civicoResidenzaSecondoConducente} con documento d'identità n° {data.numeroCartaIdentitaSecondoConducente} con scadenza il {data.scadenzaCartaIdentitaSecondoConducente} e patente
-            n° {data.numeroPatenteSecondoConducente} con scadenza il {data.scadenzaPatenteSecondoConducente} rilasciata da {data.enteRilascioPatenteSecondoConducente}</Text>
+            <Text style={styles.bodyText}>{secondoConducente.nome} {secondoConducente.cognome} nato/a a {secondoConducente.luogoDiNascita} il {secondoConducente.dataDiNascita} / codice fiscale: {secondoConducente.codiceFiscale} e residente a {secondoConducente.cittaResidenza} 
+            in {secondoConducente.viaResidenza}, {secondoConducente.civicoResidenza} con documento d'identità n° {secondoConducente.numeroCartaIdentita} con scadenza il {secondoConducente.scadenzaCartaIdentita} e patente
+            n° {secondoConducente.numeroPatente} con scadenza il {secondoConducente.scadenzaPatente} rilasciata da {secondoConducente.enteRilascioPatente}</Text>
           </View>
           ) : ("")}
         <View style={styles.bodyBorderAreaDark}>
@@ -179,7 +186,7 @@ export default function ContractPDF(data) {
         </View>
         <View style={styles.bodyBorderArea}>
           <Text style={styles.bodyText}> 
-            {data.marca} {data.modello} - targa: {data.targa}
+            {veicolo.marca} {veicolo.modello} - targa: {veicolo.targa}
           </Text>
           <Text style={styles.bodyTextNote}>*i veicoli noleggiati sono tutti di proprietà della BROCAR2 di Gianluca Buonincontri con sede in Via Camillo Cucca,
           287/289 - 80031 Brusciano (NA)</Text>    
@@ -191,39 +198,39 @@ export default function ContractPDF(data) {
         </View>
         <View style={styles.bodyBorderArea}>
           <Text style={styles.bodyTextDate}>
-            Il seguente contratto sarà da considerarsi valido dalle ore: {data.orarioDiConsegnaIn} del giorno {data.dataInizio}
-            fino alle ore {data.orarioDiConsegnaOut} del giorno {data.dataFine}.
+            Il seguente contratto sarà da considerarsi valido dalle ore: {orarioUscita} del giorno {dataUscita}
+            fino alle ore {orarioEntrata} del giorno {dataEntrata}.
           </Text>
           <Text style={styles.bodyTextDate}>
-            Il veicolo sarà consegnato dalla BROCAR2 presso la città di {data.luogoDiConsegnaOut} e verrà riconsegnato dal contraente
-            del seguente contratto presso la città di {data.luogoDiConsegnaIn}.
+            Il veicolo sarà consegnato dalla BROCAR2 presso la città di {comuneDiConsegna} - {provinciaDiConsegna} e verrà riconsegnato dal contraente
+            del seguente contratto presso la città di {comuneDiRientro} - {provinciaDiRientro}.
           </Text>
         </View>
-        {data.tariffa ? (
-          data.sconto ? (
+        {/* {tariffa ? (
+          sconto ? (
             <View style={styles.bodyBorderArea}>
               <Text style={styles.bodyText}>
-                La tariffa giornaliera scontata del {data.sconto}% riservata a te è pari ad €{data.tariffaScontata} / €{data.tariffa}</Text>
+                La tariffa giornaliera scontata del {sconto}% riservata a te è pari ad €{tariffa} / €{tariffa}</Text>
             </View>
           ) : (
             <View style={styles.bodyBorderArea}>
               <Text style={styles.bodyText}>
-                La tariffa giornaliera riservata a te è pari ad €{data.tariffa}</Text>
+                La tariffa giornaliera riservata a te è pari ad €{tariffa}</Text>
             </View>
           )
         ) : (
-          data.sconto ? (
+          sconto ? (
             <View style={styles.bodyBorderArea}>
               <Text style={styles.bodyText}>
-                La tariffa mensile scontata del {data.sconto}% riservata a te è pari ad €{data.tariffaScontataMensile} / €{data.tariffaMensile}</Text>
+                La tariffa mensile scontata del {sconto}% riservata a te è pari ad €{tariffaScontataMensile} / €{tariffaMensile}</Text>
             </View>
           ) : (
             <View style={styles.bodyBorderArea}>
               <Text style={styles.bodyText}>
-                La tariffa mensile riservata a te è pari ad €{data.tariffaMensile}</Text>
+                La tariffa mensile riservata a te è pari ad €{tariffaMensile}</Text>
             </View>
           )
-        )}
+        )} */}
         <View style={styles.twoColumn}>
             <View style={styles.column}>
               <Text style={styles.bodyTextTitle}>DANNI AUTO IN USCITA</Text>
@@ -233,11 +240,11 @@ export default function ContractPDF(data) {
             </View>
         </View>
         <View style={styles.bodyBorderArea}>
-          <Image src="#" height={50} width={50}/>    
+          {/* <Image src="#" height={50} width={50}/>     */}
         </View>   
         <View style={styles.bodyBorderArea}>
           <Text style={styles.bodyTextNote}> 
-            La franchigia casco è pari ad €{data.franchigiaCasco} e in caso di furto e/o incendio è pari ad €{data.franchigiaFurtoIncendio}.
+            La franchigia casco è pari ad €{casco} e in caso di furto e/o incendio è pari ad €{franchigia}.
             Il contraente è responsabile di ogni danno riportato al fondo o al tetto del veicolo ed inoltre verranno addebbitati costi per ogni addebito/contravvenzione o perdita di fatturato nel caso di veicolo sottoposto a fermo o a sequestro.
           </Text>    
         </View>

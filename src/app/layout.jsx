@@ -1,4 +1,4 @@
-import { Nunito } from "next/font/google";
+import { Nunito, Libre_Barcode_128 } from "next/font/google";
 import { companyName, logoLight, logoDark, colorBrand, colorDark } from "./cosetting";
 import { Analytics } from "@vercel/analytics/next"
 import { SpeedInsights } from "@vercel/speed-insights/next"
@@ -9,6 +9,11 @@ const nunito = Nunito({
   subsets: ["latin"],
 });
 
+const barcode128 = Libre_Barcode_128({
+  variable: "--font-libre_Barcode_128",
+  subsets: ["latin"],
+  weight: "400", 
+});
 
 const anno = new Date().getFullYear();
 
@@ -41,7 +46,7 @@ export default function RootLayout({ children }) {
           }}
         />
       </head>
-      <body className={`${nunito.variable} font-nunito`}>
+      <body className={`${nunito.variable} ${barcode128.variable} font-nunito`}>
         <Analytics/>
         <SpeedInsights/>
         {children}

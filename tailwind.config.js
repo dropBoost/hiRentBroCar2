@@ -12,6 +12,7 @@ module.exports = {
     extend: {
       fontFamily: {
         nunito: ['var(--font-nunito)'],
+        barcode128: ['var(--font-libre_Barcode_128)']
       },
       colors: {
         'brand': {
