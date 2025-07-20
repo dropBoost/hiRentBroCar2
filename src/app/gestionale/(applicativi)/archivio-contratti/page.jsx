@@ -3,8 +3,8 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowRotateRight, faToggleOn, faToggleOff  } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
-import CardContratto from './componenti/cardContractList';
 import DisplayContract from './componenti/displayContract';
+import DisplayContractTable from './componenti/displayContractTable';
 
 const iconaRicarica = <FontAwesomeIcon icon={faArrowRotateRight}/>
 const ICONToggleOn = <FontAwesomeIcon icon={faToggleOn}/>
@@ -13,16 +13,16 @@ const ICONToggleOff = <FontAwesomeIcon icon={faToggleOff}/>
 export default function GESTIONALEarchivioContratti () {
 
   const [onDisplayContract, setOnDisplayContract] = useState("off")
-  const [onDisplayUploadContract, setOnDisplayUploadContract] = useState("on")
+  const [onDisplayContractTable, setOnDisplayContractTable] = useState("on")
 
   function DisplayManagement () {
 
-    if (onDisplayContract == "on") {
-      setOnDisplayContract("off")
+    if (onDisplayContract == "off") {
       setOnDisplayContract("on")
+      setOnDisplayContractTable("off")
     } else {
-      setOnDisplayContract("on")
-      setOnDisplayUploadContract("off")
+      setOnDisplayContract("off")
+      setOnDisplayContractTable("on")
     }
   }
 
@@ -36,11 +36,14 @@ export default function GESTIONALEarchivioContratti () {
             onClick={() => DisplayManagement()}
             className="flex items-center justify-center text-2xl ms-2"
             >
-            {onDisplayUploadContract === "off" ? <span className='text-brand-500 flex items-center border rounded-2xl border-brand-500 px-3 py-1'>{ICONToggleOff} <font className="text-sm ms-2 font-bold" >Carica Veicoli</font></span> : <span className='text-neutral-100 flex items-center border rounded-2xl border-brand-500 px-3 py-1'>{ICONToggleOn} <font className="text-sm ms-2 font-bold" >Parco Veicoli</font></span>}
+            {onDisplayContractTable === "on" ?
+            <span className='text-neutral-100 flex items-center border rounded-2xl border-brand-500 px-3 py-1'>{ICONToggleOff} <font className="text-sm ms-2" >Tabella Clienti</font></span> :
+            <span className='text-brand-500 flex items-center border rounded-2xl border-brand-500 px-3 py-1'>{ICONToggleOn} <font className="text-sm ms-2" >Card Clienti</font></span>}
             </button>
           </div>
           <div className="lg:p-5 p-4 pe-5 justify-center lg:col-span-12 col-span-12 col-start-1 lg:row-span-11 row-span-11 row-start-2 h-full bg-neutral-800/50 rounded-2xl">
             <DisplayContract onDisplayContract={onDisplayContract}/>
+            <DisplayContractTable onDisplayContractTable={onDisplayContractTable}/>
           </div>
         </div>
         </>
