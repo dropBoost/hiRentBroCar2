@@ -17,7 +17,7 @@ export default function ContractExportPDF(props) {
       const url = URL.createObjectURL(blob);
       const link = document.createElement('a');
       link.href = url;
-      link.download = 'contratto_noleggio.pdf';
+      link.download = `${props.veicolo.targa} - ${props.cliente.nome} ${props.cliente.cognome} ${props.dataUscita}-${props.dataEntrata}` || 'contratto_noleggio.pdf';
       link.click();
       URL.revokeObjectURL(url);
     } catch (error) {
