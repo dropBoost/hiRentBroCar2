@@ -136,7 +136,7 @@ function Checkbox({ label, state, setState, color, accent }) {
         onChange={() => setState(!state)}
         className={`w-3 h-3 me-2 text-brand-500 ${accent}`}
       />
-      <label className={`font-bold uppercase text-xs ${color}`}>
+      <label className={`font-bold uppercase text-[0.5rem] ${color}`}>
         {label}
       </label>
     </div>
