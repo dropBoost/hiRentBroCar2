@@ -5,8 +5,7 @@ import { supabase } from '@/lib/supabaseClient'
 import CardContrattoListRow from './tableContractList'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
-  faUser, faAddressCard, faEnvelope, faSquareCaretRight, faAnglesRight,
-  faAnglesLeft, faCalendar, faMoneyCheckDollar, faDownload, faTrash, faCar, faSackDollar
+  faUser, faCar, faCalendar, faSackDollar
 } from '@fortawesome/free-solid-svg-icons'
 
 const ICONAuser = <FontAwesomeIcon className="me-2 text-neutral-400" icon={faUser} />
@@ -15,12 +14,17 @@ const ICONAcalendar = <FontAwesomeIcon className="me-2 text-neutral-400" icon={f
 const ICONAmoney = <FontAwesomeIcon className="me-2 text-neutral-400" icon={faSackDollar} />
 
 export default function DisplayContractTable(props) {
+  const oggi = new Date().toISOString().split('T')[0]
 
   const [contract, setContract] = useState([])
   const [loading, setLoading] = useState(true)
   const [clienti, setClienti] = useState([])
   const [veicoli, setVeicoli] = useState([])
   const [search, setSearch] = useState('')
+  const [attivi, setAttivi] = useState(false)
+  const [completati, setCompletati] = useState(false)
+  const [inEntrata, setInEntrata] = useState(false)
+  const [inUscita, setInUscita] = useState(false)
 
   const onDisplayContractTable = props.onDisplayContractTable
 
@@ -28,133 +32,121 @@ export default function DisplayContractTable(props) {
     setSearch(e.target.value.trim().toLowerCase())
   }
 
-  //FETCH CONTRATTI
+  const fetchData = async () => {
+    const [contrattiRes, clientiRes, veicoliRes] = await Promise.all([
+      supabase.from('contrattiNoleggio').select('*'),
+      supabase.from('anagraficaClienti').select('*'),
+      supabase.from('veicoli').select('*')
+    ])
+    if (!contrattiRes.error) setContract(contrattiRes.data)
+    if (!clientiRes.error) setClienti(clientiRes.data)
+    if (!veicoliRes.error) setVeicoli(veicoliRes.data)
+    setLoading(false)
+  }
+
   useEffect(() => {
-    const fetchContratti = async () => {
-      const { data, error } = await supabase
-        .from('contrattiNoleggio')
-        .select('*')
-
-      if (error) {
-        console.error('Errore nel recupero dei contratti:', error)
-      } else {
-        setContract(data)
-      }
-
-      setLoading(false)
-    }
-
-    fetchContratti()
+    fetchData()
   }, [])
 
-  //FETCH CLIENTI
-  useEffect(() => {
-    const fetchClienti = async () => {
-      const { data, error } = await supabase
-        .from('anagraficaClienti')
-        .select('*')
-
-      if (error) {
-        console.error('Errore nel recupero dei clienti:', error)
-      } else {
-        setClienti(data)
-      }
-    }
-
-    fetchClienti()
-  }, [])
-
-  //FETCH VEICOLI
-  useEffect(() => {
-    const fetchVeicoli = async () => {
-      const { data, error } = await supabase
-        .from('veicoli')
-        .select('*')
-
-      if (error) {
-        console.error('Errore nel recupero dei veicoli:', error)
-      } else {
-        setVeicoli(data)
-      }
-    }
-
-    fetchVeicoli()
-  }, [])
-
-  //LOADER
   if (loading || clienti.length === 0) return <p>Caricamento...</p>
 
-  //OGGETTO CON I DATI COMPLETI E FILTRO PER LA RICERCA
-  const contrattiCompletati = contract
+  console.log("contratti",contract)
+
+  const contrattiFiltrati = contract
     .map((contratto) => {
       const cliente = clienti.find(c => c.UUID === contratto.clientePrimoConducente)
       const secondoConducente = clienti.find(c => c.UUID === contratto.secondoConducente)
       const veicolo = veicoli.find(v => v.UUID === contratto.veicolo)
-
-      return {
-        ...contratto,
-        cliente,
-        secondoConducente,
-        veicolo
-      }
+      return { ...contratto, cliente, secondoConducente, veicolo }
     })
     .filter((contratto) => {
-      if (!search) return true
       const nome = contratto.cliente?.nome?.toLowerCase() || ''
       const cognome = contratto.cliente?.cognome?.toLowerCase() || ''
       const targa = contratto.veicolo?.targa?.toLowerCase() || ''
-      return nome.includes(search) || cognome.includes(search) || targa.includes(search)
+      const matchSearch = nome.includes(search) || cognome.includes(search) || targa.includes(search)
+
+      const dataUscita = contratto.dataUscita
+      const dataEntrata = contratto.dataEntrata
+
+      const isAttivo = dataUscita <= oggi && dataEntrata >= oggi
+      const isCompletato = dataEntrata < oggi
+      const isInEntrata = dataEntrata === oggi
+      const isInUscita = dataUscita === oggi
+
+      const matchCheckbox =
+        (!attivi || isAttivo) &&
+        (!completati || isCompletato) &&
+        (!inEntrata || isInEntrata) &&
+        (!inUscita || isInUscita)
+
+      return matchSearch && matchCheckbox
     })
 
   return (
-    <>
-      <div className={`${onDisplayContractTable === 'on' ? '' : 'hidden'}`}>
-        <div className='flex flex-col justify-start items-center gap-2 w-full h-[70vh] overflow-auto'>
-          <div className='w-full'>
-            <input
-              onChange={handleSearchCustomer}
-              value={search}
-              placeholder='Cerca cliente...'
-              type="text"
-              className='w-full h-8 rounded-lg bg-neutral-950 border border-neutral-400 text-neutral-400 p-2 placeholder:text-xs focus:outline-none focus:border-brand-500'
-            />
-          </div>
-          <div className={`w-full h-full gap-5 border border-neutral-800 rounded-lg overflow-auto`}>
-          <table className="min-w-full divide-y divide-gray-200">
-            <thead className="bg-neutral-950">
-            <tr>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-extrabold text-neutral-500 uppercase tracking-wider truncate">
-                {ICONAuser} Nominativo
-                </th>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-extrabold text-neutral-500 uppercase tracking-wider truncate">
-                {ICONAcar} Veicolo
-                </th>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-extrabold text-neutral-500 uppercase tracking-wider truncate">
-                {ICONAcalendar} Data Uscita
-                </th>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-extrabold text-neutral-500 uppercase tracking-wider truncate">
-                {ICONAcalendar} Data Entrata
-                </th>
-                <th scope="col" className="px-6 py-3 text-center text-xs font-extrabold text-neutral-500 uppercase tracking-wider truncate">
-                {ICONAmoney} Valore
-                </th>                 
-                <th scope="col" className="px-6 py-3 text-center text-xs font-extrabold text-neutral-500 uppercase tracking-wider truncate">
-                DOWNLOAD
-                </th>
-                <th scope="col" className="px-6 py-3 text-center text-xs font-extrabold text-neutral-500 uppercase tracking-wider truncate">
-                ELIMINA
-                </th>
-            </tr>
-            </thead>
-            <tbody className="divide-y divide-neutral-700">
-            {contrattiCompletati.map((contratto) => (
-              <CardContrattoListRow key={contratto.UUID} contratto={contratto} />
-            ))}
-            </tbody>
-          </table>
+    <div className={`${onDisplayContractTable === 'on' ? '' : 'hidden'}`}>
+      <div className='flex flex-col justify-start items-center gap-2 w-full h-[70vh] overflow-auto'>
+        <div className='w-full'>
+          <input
+            onChange={handleSearchCustomer}
+            value={search}
+            placeholder='Cerca cliente...'
+            type="text"
+            className='w-full h-8 rounded-lg bg-neutral-950 border border-neutral-400 text-neutral-400 p-2 placeholder:text-xs focus:outline-none focus:border-brand-500'
+          />
+
+          <div className='w-full flex flex-row gap-2'>
+            <Checkbox label="attivi" state={attivi} setState={setAttivi} color="text-green-600" accent={`accent-green-600`} />
+            <Checkbox label="completati" state={completati} setState={setCompletati} color="text-red-600" accent={`accent-red-600`}/>
+            <Checkbox label="in entrata" state={inEntrata} setState={setInEntrata} color="text-orange-400" accent={`accent-orange-400`}/>
+            <Checkbox label="in uscita" state={inUscita} setState={setInUscita} color="text-neutral-400" accent={`accent-neutral-400`}/>
           </div>
         </div>
+
+        <div className='w-full h-full gap-5 border border-neutral-800 rounded-lg overflow-auto'>
+          <table className="min-w-full divide-y divide-gray-200">
+            <thead className="bg-neutral-950">
+              <tr>
+                <Th icon={ICONAuser} label="Nominativo" />
+                <Th icon={ICONAcar} label="Veicolo" />
+                <Th icon={ICONAcalendar} label="Data Uscita" />
+                <Th icon={ICONAcalendar} label="Data Entrata" />
+                <Th icon={ICONAmoney} label="Valore" center />
+                <Th label="Download" center />
+                <Th label="Elimina" center />
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-neutral-700">
+              {contrattiFiltrati.map((contratto) => (
+                <CardContrattoListRow key={contratto.UUID} contratto={contratto} />
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
-    </>
+    </div>
+  )
+}
+
+function Checkbox({ label, state, setState, color, accent }) {
+  return (
+    <div className='flex items-center mt-2 border border-brand-500 py-1 px-2 w-fit rounded-lg'>
+      <input
+        type="checkbox"
+        checked={state}
+        onChange={() => setState(!state)}
+        className={`w-3 h-3 me-2 text-brand-500 ${accent}`}
+      />
+      <label className={`font-bold uppercase text-xs ${color}`}>
+        {label}
+      </label>
+    </div>
+  )
+}
+
+function Th({ icon, label, center = false }) {
+  return (
+    <th scope="col" className={`px-6 py-3 text-xs font-extrabold text-neutral-500 uppercase tracking-wider truncate ${center ? 'text-center' : 'text-left'}`}>
+      {icon} {label}
+    </th>
   )
 }

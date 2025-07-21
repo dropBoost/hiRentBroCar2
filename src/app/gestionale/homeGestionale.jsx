@@ -19,17 +19,24 @@ export default function HomeGestionale () {
   const isActive = (path) => pathname === path;
 
   return (
-      <div className="grid xl:grid-cols-8 grid-cols-2 h-full flex-wrap md:justify-start justify-center items-center md:flex-row gap-4 p-5 bg-neutral-950">
-          {moduliGestionale.filter(moduli => moduli.attivo === "true").map((modulo,index) => (
-          <Link key={index}
-            href={`/gestionale/${modulo.linkActive}`}
-            className={`flex items-center flex-col justify-center rounded-[1.5rem] p-2 h-[200px] w-[200px] transition duration-700 ${
-              isActive(`/gestionale/${modulo.linkActive}`) ? 'bg-brand-500' : 'bg-white text-brand-500 hover:bg-brand-500 hover:text-neutral-200'
-            }`}>
-            <span className='text-[60px]'>{modulo.icon}</span>
-            <span className='mt-3 text-sm uppercase'>{modulo.label}</span>
-          </Link>
-          ))}
-      </div>
+  <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 p-5 bg-neutral-900 overflow-auto h-full auto-rows-[200px]">
+  {moduliGestionale
+    .filter(moduli => moduli.attivo === "true")
+    .map((modulo, index) => (
+      <Link
+        key={index}
+        href={`/gestionale/${modulo.linkActive}`}
+        className={`flex flex-col items-center justify-center rounded-[1.5rem] p-4 w-full aspect-square h-full transition duration-700 ${
+          isActive(`/gestionale/${modulo.linkActive}`)
+            ? 'bg-brand-500'
+            : 'bg-white text-brand-500 hover:bg-brand-500 hover:text-neutral-200'
+        }`}
+      >
+        <span className='text-[60px]'>{modulo.icon}</span>
+        <span className='mt-3 text-sm uppercase text-center break-words'>{modulo.label}</span>
+      </Link>
+  ))}
+</div>
+
   );
 }
