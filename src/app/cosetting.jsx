@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFacebook, faInstagram, faTiktok, faWhatsapp } from "@fortawesome/free-brands-svg-icons"
-import { faEnvelope, faSquarePhone, faGauge, faUsers, faAddressBook, faFolder, faFileContract, faCar, faCalendarDays } from '@fortawesome/free-solid-svg-icons'
+import { faEnvelope, faSquarePhone, faGauge, faUsers, faAddressBook, faFolder, faFileContract, faCar, faCalendarDays, faCarOn, faMoneyCheckDollar } from '@fortawesome/free-solid-svg-icons'
 
 const ICONfacebook = <FontAwesomeIcon icon={faFacebook}/>
 const ICONwhatsApp = <FontAwesomeIcon icon={faWhatsapp}/>
@@ -15,6 +15,7 @@ const ICONredazioneContratti = <FontAwesomeIcon icon={faFileContract}/>
 const ICONarchivioContratti = <FontAwesomeIcon icon={faFolder}/>
 const ICONcalendario = <FontAwesomeIcon icon={faCalendarDays}/>
 const ICONparcoAuto = <FontAwesomeIcon icon={faCar}/>
+const ICONvenditaAuto = <FontAwesomeIcon icon={faMoneyCheckDollar}/>
 
 // PERSONALIZZAZIONI
 
@@ -33,12 +34,12 @@ export const whatsAppContactLink = "#"
 export const emailContact = "info@brocar2.it"
 
 export const socialLink = [
-    {name:'whatsApp',link:'https://www.whatsapp.com',icon: ICONwhatsApp, info:"+39 366 35 85 395"},
-    {name:'facebook',link:'fasc',icon: ICONfacebook, info:"@facebbok"},
-    {name:'instagram',link:'#',icon: ICONinstagram, info:"@instagram"},
-    {name:'tiktok',link:'#',icon: ICONtikTok, info:"@tiktok"},
-    {name:'email',link:'#',icon: ICONemail, info:"info@email.it"},
-    {name:'tel',link:'dsda',icon: ICONtel, info:"+39 366 35 85 395"},
+    {name:'whatsApp',link:'https://www.whatsapp.com',icon: ICONwhatsApp, info:"+39 366 35 85 395",attivoWeb:"true"},
+    {name:'facebook',link:'fasc',icon: ICONfacebook, info:"@facebbok",attivoWeb:"true"},
+    {name:'instagram',link:'#',icon: ICONinstagram, info:"@instagram",attivoWeb:"true"},
+    {name:'tiktok',link:'#',icon: ICONtikTok, info:"@tiktok",attivoWeb:"true"},
+    {name:'email',link:'#',icon: ICONemail, info:"info@email.it",attivoWeb:"true"},
+    {name:'tel',link:'dsda',icon: ICONtel, info:"+39 366 35 85 395",attivoWeb:"true"},
   ]
 
 export const moduliGestionale = [
@@ -48,4 +49,5 @@ export const moduliGestionale = [
     {name:'archivioContratti', link:'./archivio-contratti', linkActive:'archivio-contratti', icon: ICONarchivioContratti, label:'archivio contratti', attivo:'true'},
     {name:'calendario', link:'./calendario',  linkActive:'calendario', icon:ICONcalendario, label:'calendario', attivo:'true'},
     {name:'parcoAuto', link:'./parco-auto', linkActive:'parco-auto', icon: ICONparcoAuto, label:'parco auto', attivo:'true'},
+    {name:'venditaAuto', link:'./vendita-auto', linkActive:'vendita-auto', icon: ICONvenditaAuto, label:'vendita auto', attivo:'true'},
   ]

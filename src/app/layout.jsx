@@ -1,10 +1,15 @@
-import { Nunito, Libre_Barcode_128 } from "next/font/google";
+import { Nunito, Libre_Barcode_128, Montserrat } from "next/font/google";
 import { companyName, logoLight, logoDark, colorBrand, colorDark } from "./cosetting";
 import { Analytics } from "@vercel/analytics/next"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import "./globals.css";
 
 const nunito = Nunito({
+  variable: "--font-nunito",
+  subsets: ["latin"],
+});
+
+const montserrat = Montserrat({
   variable: "--font-nunito",
   subsets: ["latin"],
 });
@@ -46,7 +51,7 @@ export default function RootLayout({ children }) {
           }}
         />
       </head>
-      <body className={`${nunito.variable} ${barcode128.variable} font-nunito`}>
+      <body className={`${nunito.variable} ${barcode128.variable} ${montserrat.variable} font-nunito`}>
         <Analytics/>
         <SpeedInsights/>
         {children}
