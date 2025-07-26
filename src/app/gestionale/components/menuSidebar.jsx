@@ -16,40 +16,41 @@ const iconaHome = <FontAwesomeIcon icon={faHome} className='max-h-[15px]'  />
 
 export default function MenuSidebar () {
 
+  const pathname = usePathname();
 
- const pathname = usePathname();
-
-  const isActive = (path) => pathname === path;
+  // Modifica qui: isActive controlla se pathname inizia con 'path'
+  const isActive = (path) => pathname?.startsWith(path);
+  const isActiveHome = (path) => pathname == path;
 
   return (
-      <ul className="flex flex-row md:flex-col gap-2">
-        <li>
-          <Link
-            href={`/gestionale`}
-            title={`HOME GESTIONALE`}
-            className={`flex items-center justify-center rounded-full p-2 md:h-[40px] md:w-[40px] h-[30px] w-[30px] transition duration-700 ${
-              isActive(`/gestionale`) ? 'bg-brand-500 text-neutral-100' : 'bg-neutral-100 text-brand-500 hover:bg-brand-500 hover:text-neutral-200'
-            }`}
-          >
-            {iconaHome}
-          </Link>
-        </li>
-        {moduliGestionale.filter(moduli => moduli.attivo == "true").map(modulo=>(
+    <ul className="flex flex-row md:flex-col gap-2">
+      <li>
+        <Link
+          href={`/gestionale`}
+          title={`HOME GESTIONALE`}
+          className={`flex items-center justify-center rounded-full p-2 md:h-[40px] md:w-[40px] h-[30px] w-[30px] transition duration-700 ${
+            isActiveHome(`/gestionale`) ? 'bg-brand-500 text-neutral-100' : 'bg-neutral-100 text-brand-500 hover:bg-brand-500 hover:text-neutral-200'
+          }`}
+        >
+          {iconaHome}
+        </Link>
+      </li>
+      {moduliGestionale
+        .filter(moduli => moduli.attivo === "true")
+        .map(modulo => (
           <li key={modulo.name}>
-          <Link
-            href={modulo.link}
-            title={modulo.linkActive}
-            className={`flex items-center justify-center rounded-full p-2 md:h-[40px] md:w-[40px] h-[30px] w-[30px] transition duration-700 ${
-              isActive(`/gestionale/${modulo.linkActive}`) ? 'bg-brand-500 text-neutral-100' : 'bg-neutral-100 text-brand-500 hover:bg-brand-500 hover:text-neutral-200'
-            }`}
-          >
-            {modulo.icon}
-          </Link>
-        </li>          
-        ))}
-      </ul>
+            <Link
+              href={modulo.link}
+              title={modulo.linkActive}
+              className={`flex items-center justify-center rounded-full p-2 md:h-[40px] md:w-[40px] h-[30px] w-[30px] transition duration-700 ${
+                isActive(`/gestionale/${modulo.linkActive}`) ? 'bg-brand-500 text-neutral-100' : 'bg-neutral-100 text-brand-500 hover:bg-brand-500 hover:text-neutral-200'
+              }`}
+            >
+              {modulo.icon}
+            </Link>
+          </li>
+        ))
+      }
+    </ul>
   );
-    
-
-
 }

@@ -43,11 +43,11 @@ export const socialLink = [
   ]
 
 export const moduliGestionale = [
-    {name:'dashboard', link:'./dashboard', linkActive:'dashboard', icon: ICONdashboard, label:'dashboard', attivo:'true'},
-    {name:'anagraficaClienti', link:'./anagrafica-clienti', linkActive:'anagrafica-clienti', icon: ICONusers, label:'anagrafica clienti', attivo:'true'},
-    {name:'redazioneContratti', link:'./redazione-contratti', linkActive:'redazione-contratti', icon:ICONredazioneContratti, label:'redazione contratti', attivo:'true'},
-    {name:'archivioContratti', link:'./archivio-contratti', linkActive:'archivio-contratti', icon: ICONarchivioContratti, label:'archivio contratti', attivo:'true'},
-    {name:'calendario', link:'./calendario',  linkActive:'calendario', icon:ICONcalendario, label:'calendario', attivo:'true'},
-    {name:'noleggioAuto', link:'./noleggio-auto', linkActive:'noleggio-auto', icon: ICONnoleggioAuto, label:'noleggio auto', attivo:'true'},
-    {name:'venditaAuto', link:'./vendita-auto', linkActive:'vendita-auto', icon: ICONvenditaAuto, label:'vendita auto', attivo:'true'},
+    {name:'dashboard', link:'/gestionale/dashboard', linkActive:'dashboard', icon: ICONdashboard, label:'dashboard', attivo:'true'},
+    {name:'anagraficaClienti', link:'/gestionale/anagrafica-clienti', linkActive:'anagrafica-clienti', icon: ICONusers, label:'anagrafica clienti', attivo:'true'},
+    {name:'redazioneContratti', link:'/gestionale/redazione-contratti', linkActive:'redazione-contratti', icon:ICONredazioneContratti, label:'redazione contratti', attivo:'true'},
+    {name:'archivioContratti', link:'/gestionale/archivio-contratti', linkActive:'archivio-contratti', icon: ICONarchivioContratti, label:'archivio contratti', attivo:'true'},
+    {name:'calendario', link:'/gestionale/calendario',  linkActive:'calendario', icon:ICONcalendario, label:'calendario', attivo:'true'},
+    {name:'noleggioAuto', link:'/gestionale/noleggio-auto', linkActive:'noleggio-auto', icon: ICONnoleggioAuto, label:'noleggio auto', attivo:'true'},
+    {name:'venditaAuto', link:'/gestionale/vendita-auto', linkActive:'vendita-auto', icon: ICONvenditaAuto, label:'vendita auto', attivo:'true'},
   ]
