@@ -1,4 +1,5 @@
 import Image from "next/image"
+import Link from "next/link";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPencil  } from '@fortawesome/free-solid-svg-icons';
 
@@ -6,6 +7,7 @@ const iconMODIFICA = <FontAwesomeIcon icon={faPencil}/>
 
 export default function CarCardSell(props) {
   const {
+    UUID,
     imgLink,
     marca,
     modello,
@@ -64,9 +66,9 @@ export default function CarCardSell(props) {
 
       {/* BOTTONE */}
       <div className="flex justify-end">
-        <button className="bg-brand-500 hover:bg-white hover:text-brand-500 text-white text-xs w-6 h-6 flex items-center justify-center rounded-full transition-colors border border-brand-500">
+        <Link href={`./vendita-auto/${UUID}`} className="bg-brand-500 hover:bg-white hover:text-brand-500 text-white text-xs w-6 h-6 flex items-center justify-center rounded-full transition-colors border border-brand-500">
           {iconMODIFICA}
-        </button>
+        </Link>
       </div>
     </div>
   </div>

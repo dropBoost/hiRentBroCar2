@@ -40,6 +40,7 @@ export default function DisplayCarSell () {
                 colore={veicolo.colore}
                 carburante={veicolo.carburante}
                 web={veicolo.disponibileWeb}
+                UUID={veicolo.UUID}
             />
             ))}
         </div>

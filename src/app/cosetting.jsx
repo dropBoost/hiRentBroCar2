@@ -14,7 +14,7 @@ const ICONusers = <FontAwesomeIcon icon={faAddressBook}/>
 const ICONredazioneContratti = <FontAwesomeIcon icon={faFileContract}/>
 const ICONarchivioContratti = <FontAwesomeIcon icon={faFolder}/>
 const ICONcalendario = <FontAwesomeIcon icon={faCalendarDays}/>
-const ICONparcoAuto = <FontAwesomeIcon icon={faCar}/>
+const ICONnoleggioAuto = <FontAwesomeIcon icon={faCar}/>
 const ICONvenditaAuto = <FontAwesomeIcon icon={faMoneyCheckDollar}/>
 
 // PERSONALIZZAZIONI
@@ -48,6 +48,6 @@ export const moduliGestionale = [
     {name:'redazioneContratti', link:'./redazione-contratti', linkActive:'redazione-contratti', icon:ICONredazioneContratti, label:'redazione contratti', attivo:'true'},
     {name:'archivioContratti', link:'./archivio-contratti', linkActive:'archivio-contratti', icon: ICONarchivioContratti, label:'archivio contratti', attivo:'true'},
     {name:'calendario', link:'./calendario',  linkActive:'calendario', icon:ICONcalendario, label:'calendario', attivo:'true'},
-    {name:'parcoAuto', link:'./parco-auto', linkActive:'parco-auto', icon: ICONparcoAuto, label:'parco auto', attivo:'true'},
+    {name:'noleggioAuto', link:'./noleggio-auto', linkActive:'noleggio-auto', icon: ICONnoleggioAuto, label:'noleggio auto', attivo:'true'},
     {name:'venditaAuto', link:'./vendita-auto', linkActive:'vendita-auto', icon: ICONvenditaAuto, label:'vendita auto', attivo:'true'},
   ]
