@@ -42,6 +42,7 @@ export default function UploadSellCar() {
     targa: '',
     trazione:'',
     titoloAnnuncio: '',
+    classificazioneAuto:'',
     classeEmissioni:'',
     disponibileWeb: false,
   })
@@ -162,6 +163,7 @@ export default function UploadSellCar() {
         promo:'',
         posti: '',
         targa: '',
+        classificazioneAuto:'',
         titoloAnnuncio: '',
         classeEmissioni:'',
         disponibileWeb: false,
@@ -233,7 +235,15 @@ export default function UploadSellCar() {
         <InputText label="ANNO" name="anno" value={veicolo.anno} onChange={handleChange} colSpan="lg:col-span-1" />
         <InputText label="COLORE" name="colore" value={veicolo.colore} onChange={handleChange} colSpan="lg:col-span-1" />
         <InputText label="ALLESTIMENTO" name="allestimento" value={veicolo.allestimento} onChange={handleChange} colSpan="lg:col-span-2" />
-        <InputText label="KM" name="km" value={veicolo.km} onChange={handleChange} colSpan="lg:col-span-2" />
+        <SelectField
+          label="CLASSIFICAZIONE AUTO"
+          name="classificazioneAuto"
+          value={veicolo.classificazioneAuto}
+          onChange={handleChange}
+          options={['', 'Usato', 'Nuovo']}
+          colSpan="lg:col-span-1"
+        />
+        <InputText label="KM" name="km" value={veicolo.km} onChange={handleChange} colSpan="lg:col-span-1" />
         <SelectField
           label="TRAZIONE"
           name="trazione"
@@ -457,7 +467,7 @@ function SelectField({ label, name, value, onChange, options, colSpan }) {
         name={name}
         value={value}
         onChange={onChange}
-        className="block w-full rounded-lg p-2 text-gray-600 focus:outline-none focus:ring-2 focus:ring-brand-500 sm:text-sm"
+        className="block w-full rounded-lg p-2 text-gray-600 focus:outline-none text-sm focus:ring-2 focus:ring-brand-500 sm:text-sm"
         required
       >
         {options.map(opt => (
