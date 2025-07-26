@@ -45,8 +45,26 @@ export default function Home() {
           <h3 className="text-neutral-100 font-bold">I NOSTRI SERVIZI</h3>
         </div>
     </div>
-    <div className="w-full">
-
+    <div className="w-full flex justify-center items-center">
+      <div className="flex xl:flex-row flex-col justify-center items-center w-[1400px] xl:py-10 py-7 xl:px-0 px-7 h-fit gap-5">
+        <div className="flex flex-col justify-start items-start border h-full p-10 gap-10" id="servizio1">
+          <h1 className="bg-neutral-300 px-5 py-2 rounded-xl uppercase text-neutral-900 text-sm font-bold">Servizi di Vendita</h1>
+          <p>Da anni ci occupiamo della vendita di auto, moto e scooter nuovo e usato. I nostri veicoli sono attentamente selezionati e coperti sempre da garanzia su meccanica ed elettronica.</p>
+          <button className="bg-brand-500 text-sm px-4 py-2 text-neutral-100 hover:bg-neutral-100 hover:text-brand-500" href={'#'}>SCOPRI IL PARCO AUTO</button>
+        </div>
+        <div className="flex flex-col justify-start items-start border h-full p-10 gap-10" id="servizio1">
+          <h1 className="bg-neutral-300 px-5 py-2 rounded-xl uppercase text-neutral-900 text-sm font-bold">Garanzia OPTEVEN</h1>
+          <p>Le nostre auto sono tutte coperte dall’ Estensione di Garanzia OPTEVEN.
+          L’Estensione di Garanzia consente di prolungare la garanzia fornita dalla casa costruttrice. Copre i costi di riparazione in caso di guasti meccanici, elettronici o elettrici per veicoli nuovi o usati.
+          </p>
+          <button className="bg-brand-500 text-sm px-4 py-2 text-neutral-100 hover:bg-neutral-100 hover:text-brand-500" href={'#'}>LEGGI I DETTAGLI DELLA POLIZZA</button>
+        </div>
+        <div className="flex flex-col justify-start items-start border h-full p-10 gap-10" id="servizio1">
+          <h1 className="bg-neutral-300 px-5 py-2 rounded-xl uppercase text-neutral-900 text-sm font-bold">Finanziamenti in sede</h1>
+          <p>Realizza ora il tuo sogno direttamente dalla nostra concessionaria. Finanzia la tua auto attraverso i nostri servizi di dilazione del pagamento.</p>
+          <button className="bg-brand-500 text-sm px-4 py-2 text-neutral-100 hover:bg-neutral-100 hover:text-brand-500" href={'#'}>CLICCA QUI</button>
+        </div>
+      </div>
     </div>
     </>
   );
