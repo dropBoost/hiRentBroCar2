@@ -41,7 +41,7 @@ export default function GESTIONALEParcoAuto () {
             <div className={`w-full lg:h-[70vh] md:h-[65vh] h-[60vh] overflow-auto ${onDisplayUploadCar ==="off" ? "" : "hidden"}`}>
               <UploadCar/>
             </div>
-            <div className={`w-full grid grid-cols-2  lg:h-[70vh] rounded-lg  md:h-[65vh] h-[60vh] overflow-auto ${onDisplayCar ==="off" ? "" : "hidden"}`}>
+            <div className={`flex w-full h-[70vh] overflow-y-auto p-2 gap-4 ${onDisplayCar ==="off" ? "" : "hidden"}`}>
               <DisplayCar/>
             </div>
           </div>

@@ -40,6 +40,7 @@ export default function UploadSellCar() {
     promo:'',
     posti: '',
     targa: '',
+    trazione:'',
     titoloAnnuncio: '',
     classeEmissioni:'',
     disponibileWeb: false,
@@ -164,6 +165,7 @@ export default function UploadSellCar() {
         titoloAnnuncio: '',
         classeEmissioni:'',
         disponibileWeb: false,
+        trazione:'',
       })
       setFileImage(null)
       setImagePreview(null)
@@ -232,6 +234,14 @@ export default function UploadSellCar() {
         <InputText label="COLORE" name="colore" value={veicolo.colore} onChange={handleChange} colSpan="lg:col-span-1" />
         <InputText label="ALLESTIMENTO" name="allestimento" value={veicolo.allestimento} onChange={handleChange} colSpan="lg:col-span-2" />
         <InputText label="KM" name="km" value={veicolo.km} onChange={handleChange} colSpan="lg:col-span-2" />
+        <SelectField
+          label="TRAZIONE"
+          name="trazione"
+          value={veicolo.trazione}
+          onChange={handleChange}
+          options={['', 'FWD - Anteriore', 'RWD - Posteriore', 'AWD - Integrale']}
+          colSpan="lg:col-span-1"
+        />
         <InputText label="INTERNI" name="interni" value={veicolo.interni} onChange={handleChange} colSpan="lg:col-span-2" />
         <InputText label="PNEUMATICI" name="pneumatici" value={veicolo.pneumatici} onChange={handleChange} colSpan="lg:col-span-1" />
         <InputText label="CILINDRATA" name="cilindrata" value={veicolo.cilindrata} onChange={handleChange} colSpan="lg:col-span-1" />

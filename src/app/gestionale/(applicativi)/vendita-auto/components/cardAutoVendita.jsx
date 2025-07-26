@@ -13,85 +13,64 @@ export default function CarCardSell(props) {
     targa,
     colore,
     carburante,
-    noleggio: disponibileNoleggio,
     web: disponibileWeb,
-    manutenzione: manutezione,
   } = props
 
   return (
-    <div className="2xl:h-[140px] xl:h-[160px] sm:h-[220px] h-[230px] flex xl:flex-row flex-col w-full border border-neutral-800 overflow-hidden rounded-xl p-2">
-      {/* IMMAGINE */}
-      <div className="relative xl:w-[100px] w-full xl:h-full h-[60px] shrink-0 rounded-lg overflow-hidden mb-2 xl:mb-0">
-        <Image
-          src={imgLink}
-          alt="Veicolo"
-          fill
-          className="object-cover object-center"
-          sizes="100px"
-          quality={100}
-        />
+
+
+  <div className="flex flex-col lg:flex-row border border-neutral-300 bg-white shadow-md rounded-xl overflow-hidden w-full h-fit p-4">
+    
+    {/* IMMAGINE */}
+    <div className="relative w-full lg:w-[100px] h-[150px] lg:h-auto rounded-md overflow-hidden mb-3 lg:mb-0 lg:mr-4 shrink-0">
+      <Image
+        src={imgLink}
+        alt="Veicolo"
+        fill
+        className="object-cover object-center"
+        sizes="(max-width: 768px) 100vw, 100px"
+        quality={100}
+      />
+    </div>
+
+    {/* CONTENUTO */}
+    <div className="flex flex-col justify-between flex-1 text-sm text-neutral-700 gap-2">
+      
+      {/* INTESTAZIONE */}
+      <div className="flex flex-col gap-2 lg:flex-row lg:justify-between lg:items-center">
+        
+        {/* TARGA */}
+        <div className="bg-brand-500 text-white rounded-md px-3 py-1 font-semibold text-sm w-fit">
+          {targa}
+        </div>
+
+        {/* ETICHETTA */}
+        {disponibileWeb === "true" ? (
+          <span className="text-green-600 border border-green-600 rounded-full px-2 py-[2px] text-[10px] font-medium">
+            ONLINE
+          </span>
+        ) : (
+          <span className="text-red-500 border border-red-500 rounded-full px-2 py-[2px] text-[10px] font-medium">
+            OFFLINE
+          </span>
+        )}
       </div>
 
-      {/* DETTAGLI */}
-      <div className="flex flex-col justify-center xl:px-4 px-2 text-xs w-full text-neutral-400">
-        <div className="flex flex-col gap-2 2xl:flex-row 2xl:items-center 2xl:justify-between justify-start mb-2 ">
+      {/* INFO VEICOLO */}
+      <div className="text-xs text-neutral-500">
+        <p><font className="font-bold uppercase">{marca} {modello}</font>  - {colore}</p>
+        <p>{anno} - {carburante}</p>
+      </div>
 
-
-          {/* TARGA */}
-          <div className="border border-brand-500 rounded-md text-neutral-300 lg:w-fit px-3 py-1">
-            <h2 className="font-extrabold text-base">{targa}</h2>
-          </div>
-
-          {/* ETICHETTE */}
-          <div className="flex flex-wrap gap-1 justify-start 2xl:justify-end w-full">
-
-            {/* Stato noleggio / manutenzione */}
-            {(() => {
-              if (disponibileNoleggio === "true" && manutezione === "false") {
-                return (
-                  <div className="w-[15px] h-[15px] bg-green-600 rounded-full">
-                    <span className="text-owerflow"></span>
-                  </div>
-                )
-              } else if (manutezione === "true") {
-                return (
-                  <div className="h-[15px] bg-yellow-500 rounded-full text-[0.5rem] font-extrabold text-neutral-950 px-2">
-                    IN MANUTENZIONE
-                  </div>
-                )
-              } else {
-                return (
-                  <div className="h-[15px] bg-red-600 rounded-full text-[0.5rem] font-extrabold text-neutral-950 px-2 max-w-full overflow-hidden whitespace-nowrap text-ellipsis">
-                    <span className="text-owerflow">NON DISPONIBILE</span>
-                  </div>
-                )
-              }
-            })()}
-
-            {/* Disponibilità Web */}
-            {disponibileWeb === "true" ? (
-              <div className="h-[15px] px-2 border border-green-600 rounded-full text-[0.5rem] flex items-center justify-center text-green-500">
-                <span className="text-owerflow">ONLINE</span>
-              </div>
-            ) : (
-              <div className="h-[15px] px-2 border border-red-600 rounded-full text-[0.5rem] flex items-center justify-center text-red-400">
-                <span className="text-owerflow">OFFLINE</span>
-              </div>
-            )}
-
-
-          </div>
-        </div>
-
-        {/* INFO */}
-        <div className="mb-2">
-        <h3>{marca} {modello} - {colore}</h3>
-        <h3>{anno} - {carburante}</h3>
-        </div>
-        <div className="flex xl:justify-end justify-start items-center">
-          <button className="bg-brand-500 hover:bg-neutral-100 hover:text-brand-500 p-2 flex justify-center items-center rounded-full w-5 h-5 text-[0.6rem] ">{iconMODIFICA}</button>
-        </div>
+      {/* BOTTONE */}
+      <div className="flex justify-end">
+        <button className="bg-brand-500 hover:bg-white hover:text-brand-500 text-white text-xs w-6 h-6 flex items-center justify-center rounded-full transition-colors border border-brand-500">
+          {iconMODIFICA}
+        </button>
       </div>
     </div>
+  </div>
+
+
   )
 }
