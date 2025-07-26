@@ -66,7 +66,7 @@ export default function CarCardSell(props) {
 
       {/* BOTTONE */}
       <div className="flex justify-end">
-        <Link href={`./vendita-auto/${UUID}`} className="bg-brand-500 hover:bg-white hover:text-brand-500 text-white text-xs w-6 h-6 flex items-center justify-center rounded-full transition-colors border border-brand-500">
+        <Link href={`/gestionale/vendita-auto/${UUID}`} className="bg-brand-500 hover:bg-white hover:text-brand-500 text-white text-xs w-6 h-6 flex items-center justify-center rounded-full transition-colors border border-brand-500">
           {iconMODIFICA}
         </Link>
       </div>

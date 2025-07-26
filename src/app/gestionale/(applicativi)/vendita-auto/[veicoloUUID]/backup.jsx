@@ -28,12 +28,12 @@ export default function PAGEveicolo ({params}){
         } else {
             setVeicoloSelezionato(data)
             if (data?.length > 0) {
-                setVeicolo({
-                    ...data[0],
-                    disponibileWeb: data[0].disponibileWeb === "true",
-                    promo: data[0].promo === "true",
-                    special: data[0].special === "true",
-                })
+            setVeicolo({
+                ...data[0],
+                disponibileWeb: data[0].disponibileWeb || false,
+                promo: data[0].promo || false,
+                special: data[0].special || false,
+            })
             }
         }
 
@@ -88,6 +88,20 @@ export default function PAGEveicolo ({params}){
         }))
     }
 
+    const handleMultipleFilesChange = e => {
+        const files = Array.from(e.target.files)
+        if (!files.length) return
+        setFileImages(files)
+        setImagePreviews(files.map(file => URL.createObjectURL(file)))
+    }
+
+    const handleFileChange = e => {
+        const file = e.target.files[0]
+        if (!file) return
+        setFileImage(file)
+        setImagePreview(URL.createObjectURL(file))
+    }
+
     const handleSubmit = async e => {
         e.preventDefault()
         setLoading(true)
@@ -96,9 +110,6 @@ export default function PAGEveicolo ({params}){
 
             const veicoloToInsert = {
                 ...veicolo,
-                disponibileWeb: veicolo.disponibileWeb ? "true" : "false",
-                promo: veicolo.promo ? "true" : "false",
-                special: veicolo.special ? "true" : "false",
             }
 
         const { data, error } = await supabase
@@ -108,7 +119,7 @@ export default function PAGEveicolo ({params}){
 
         if (error) throw error
 
-        alert('Veicolo modificato con successo!')
+        alert('Veicolo inserito con successo!')
 
         setVeicolo({
             marca: '',
@@ -168,24 +179,24 @@ export default function PAGEveicolo ({params}){
     
             {/* Checkboxes */}
             <div className="flex gap-2">
-                <CheckboxField
-                    name="disponibileWeb"
-                    label="SITO"
-                    checked={veicolo.disponibileWeb}
+            
+            {['disponibileWeb', 'promo', 'special'].map(field => (
+                <label
+                key={field}
+                className="flex items-center gap-2 border border-brand-500 px-2 py-2 rounded-xl text-[0.6rem] text-neutral-400 font-extrabold cursor-pointer"
+                >
+                <input
+                    type="checkbox"
+                    name={field}
+                    checked={veicolo[field]}
                     onChange={handleChange}
+                    className="w-3 h-3 text-brand-500"
                 />
-                <CheckboxField
-                    name="promo"
-                    label="PROMO"
-                    checked={veicolo.promo}
-                    onChange={handleChange}
-                />
-                <CheckboxField
-                    name="special"
-                    label="SPECIAL"
-                    checked={veicolo.special}
-                    onChange={handleChange}
-                />
+                {field === 'disponibileWeb' && 'SITO'}
+                {field === 'promo' && 'PROMO'}
+                {field === 'special' && 'SPECIAL'}
+                </label>
+            ))}
             </div>
             <hr className="border-brand-500" />
             <div>
@@ -193,13 +204,14 @@ export default function PAGEveicolo ({params}){
             </div>    
             {/* Inputs grid */}
             <div className="grid grid-cols-1 lg:grid-cols-8 gap-5">
-            <InputText label="TARGA" name="targa" value={veicolo.targa} placeholder="targa" onChange={handleChange} colSpan="lg:col-span-1" />
+            <InputText label="TARGA" name="targa" value={veicolo.targa} placeholder={veicoloSelezionato[0]?.targa} onChange={handleChange} colSpan="lg:col-span-1" />
+            <InputText label="MARCA" name="marca" value={veicolo.marca} placeholder={veicoloSelezionato[0]?.marca} onChange={handleChange} colSpan="lg:col-span-1" />
             <SelectField
                 label="MARCA"
                 name="marca"
                 value={veicolo.marca}
                 onChange={handleChange}
-                options={elencoMarchiAuto.map(marchio => (`${marchio.name}`))}
+                options={[veicoloSelezionato[0]?.marca, ...elencoMarchiAuto.map(marchio => (`${marchio.name}`))]}
                 colSpan="lg:col-span-1"
             />
             <InputText label="MODELLO" name="modello" value={veicolo.modello} placeholder={veicoloSelezionato[0]?.modello} onChange={handleChange} colSpan="lg:col-span-2" />
@@ -211,7 +223,7 @@ export default function PAGEveicolo ({params}){
                 name="classificazioneAuto"
                 value={veicolo.classificazioneAuto}
                 onChange={handleChange}
-                options={['Usato', 'Nuovo']}
+                options={[`${veicoloSelezionato[0]?.classificazioneAuto}`, 'Usato', 'Nuovo']}
                 colSpan="lg:col-span-1"
             />
             <InputText label="KM" name="km" value={veicolo.km} placeholder={veicoloSelezionato[0]?.km} onChange={handleChange} colSpan="lg:col-span-1" />
@@ -220,19 +232,19 @@ export default function PAGEveicolo ({params}){
                 name="trazione"
                 value={veicolo.trazione}
                 onChange={handleChange}
-                options={['FWD - Anteriore', 'RWD - Posteriore', 'AWD - Integrale']}
+                options={[`${veicoloSelezionato[0]?.trazione}`, 'FWD - Anteriore', 'RWD - Posteriore', 'AWD - Integrale']}
                 colSpan="lg:col-span-1"
             />
-            <InputText label="INTERNI" name="interni" value={veicolo.interni} placeholder="interni" onChange={handleChange} colSpan="lg:col-span-2" />
-            <InputText label="PNEUMATICI" name="pneumatici" value={veicolo.pneumatici} placeholder="pneumatici" onChange={handleChange} colSpan="lg:col-span-1" />
-            <InputText label="CILINDRATA" name="cilindrata" value={veicolo.cilindrata} placeholder="cilindrata" onChange={handleChange} colSpan="lg:col-span-1" />
-            <InputText label="CAVALLI" name="cavalli" value={veicolo.cavalli} placeholder="cavalli" onChange={handleChange} colSpan="lg:col-span-1" />
+            <InputText label="INTERNI" name="interni" value={veicolo.interni} placeholder={veicoloSelezionato[0]?.interni} onChange={handleChange} colSpan="lg:col-span-2" />
+            <InputText label="PNEUMATICI" name="pneumatici" value={veicolo.pneumatici} placeholder={veicoloSelezionato[0]?.pneumatici} onChange={handleChange} colSpan="lg:col-span-1" />
+            <InputText label="CILINDRATA" name="cilindrata" value={veicolo.cilindrata} placeholder={veicoloSelezionato[0]?.cilindrata} onChange={handleChange} colSpan="lg:col-span-1" />
+            <InputText label="CAVALLI" name="cavalli" value={veicolo.cavalli} placeholder={veicoloSelezionato[0]?.cavalli} onChange={handleChange} colSpan="lg:col-span-1" />
             <SelectField
                 label="PROVENIENZA"
                 name="provenienza"
                 value={veicolo.provenienza}
                 onChange={handleChange}
-                options={['Italia', 'Europa']}
+                options={[`${veicoloSelezionato[0]?.provenienza}`, 'Italia', 'Europa']}
                 colSpan="lg:col-span-1"
             />
             <SelectField
@@ -240,7 +252,7 @@ export default function PAGEveicolo ({params}){
                 name="proprietari"
                 value={veicolo.proprietari}
                 onChange={handleChange}
-                options={['1', '2', '3', '4', 'altro']}
+                options={[`${veicoloSelezionato[0]?.proprietari}`, '1', '2', '3', '4', 'altro']}
                 colSpan="lg:col-span-1"
             />
             <SelectField
@@ -248,7 +260,7 @@ export default function PAGEveicolo ({params}){
                 name="cambio"
                 value={veicolo.cambio}
                 onChange={handleChange}
-                options={['Automatico', 'Manuale', 'Sequenziale']}
+                options={[`${veicoloSelezionato[0]?.cambio}`, 'Automatico', 'Manuale', 'Sequenziale']}
                 colSpan="lg:col-span-1"
             />
             <SelectField
@@ -256,7 +268,7 @@ export default function PAGEveicolo ({params}){
                 name="classeEmissioni"
                 value={veicolo.classeEmissioni}
                 onChange={handleChange}
-                options={['EURO 3', 'EURO 4', 'EURO 5', 'EURO 6', 'altro']}
+                options={[`${veicoloSelezionato[0]?.classeEmissioni}`,'EURO 3', 'EURO 4', 'EURO 5', 'EURO 6', 'altro']}
                 colSpan="lg:col-span-1"
             />
             <SelectField
@@ -264,7 +276,7 @@ export default function PAGEveicolo ({params}){
                 name="carrozzeria"
                 value={veicolo.carrozzeria}
                 onChange={handleChange}
-                options={['Berlina', 'Coupè', 'SUV', 'Monovolume', 'Station Wagon', 'Furgone', 'Van']}
+                options={[`${veicoloSelezionato[0]?.carrozzeria}`, 'Berlina', 'Coupè', 'SUV', 'Monovolume', 'Station Wagon', 'Furgone', 'Van']}
                 colSpan="lg:col-span-1"
             />
             <SelectField
@@ -272,7 +284,7 @@ export default function PAGEveicolo ({params}){
                 name="carburante"
                 value={veicolo.carburante}
                 onChange={handleChange}
-                options={['Benzina', 'GPL', 'Diesel', 'Metano', 'Hybrid', 'Elettrica']}
+                options={[`${veicoloSelezionato[0]?.carburante}`, 'Benzina', 'GPL', 'Diesel', 'Metano', 'Hybrid', 'Elettrica']}
                 colSpan="lg:col-span-1"
             />
             <SelectField
@@ -280,7 +292,7 @@ export default function PAGEveicolo ({params}){
                 name="posti"
                 value={veicolo.posti}
                 onChange={handleChange}
-                options={['2', '4', '5', '6', '7', '9', 'altro']}
+                options={[`${veicoloSelezionato[0]?.posti}`, '2', '4', '5', '6', '7', '9', 'altro']}
                 colSpan="lg:col-span-1"
             />
             <SelectField
@@ -288,7 +300,7 @@ export default function PAGEveicolo ({params}){
                 name="porte"
                 value={veicolo.porte}
                 onChange={handleChange}
-                options={['2', '3', '5', '7', 'altro']}
+                options={[`${veicoloSelezionato[0]?.porte}`, '2', '3', '5', '7', 'altro']}
                 colSpan="lg:col-span-1"
             />
             <SelectField
@@ -296,7 +308,7 @@ export default function PAGEveicolo ({params}){
                 name="garanzia"
                 value={veicolo.garanzia}
                 onChange={handleChange}
-                options={['12 mesi', '18 mesi', '24 mesi', 'no garanzia']}
+                options={[`${veicoloSelezionato[0]?.garanzia}`, '12 mesi', '18 mesi', '24 mesi', 'no garanzia']}
                 colSpan="lg:col-span-1"
             />
             </div>
@@ -304,16 +316,16 @@ export default function PAGEveicolo ({params}){
             <hr className="border-brand-500" />  
     
             <div className="grid grid-cols-1 lg:grid-cols-4 gap-5">
-            <InputText label="TITOLO ANNUNCIO" name="titoloAnnuncio" value={veicolo.titoloAnnuncio} placeholder="Titolo Annuncio" onChange={handleChange} colSpan="lg:col-span-4" />
-            <Textarea label="OPTIONAL" name="optional" value={veicolo.optional} placeholder="Optional" onChange={handleChange} colSpan="lg:col-span-2" />
-            <Textarea label="ANNUNCIO" name="annuncio" value={veicolo.annuncio} placeholder="Annuncio" onChange={handleChange} colSpan="lg:col-span-2" />
+            <InputText label="TITOLO ANNUNCIO" name="titoloAnnuncio" value={veicolo.titoloAnnuncio} placeholder={veicoloSelezionato[0]?.titoloAnnuncio} onChange={handleChange} colSpan="lg:col-span-4" />
+            <Textarea label="OPTIONAL" name="optional" value={veicolo.optional} placeholder={veicoloSelezionato[0]?.optional} onChange={handleChange} colSpan="lg:col-span-2" />
+            <Textarea label="ANNUNCIO" name="annuncio" value={veicolo.annuncio} placeholder={veicoloSelezionato[0]?.annuncio} onChange={handleChange} colSpan="lg:col-span-2" />
             </div>
     
             <hr className="border-brand-500" />
     
             <div className="grid grid-cols-1 lg:grid-cols-4 gap-5">
-            <InputText label="PREZZO" name="prezzo" value={veicolo.prezzo} placeholder="prezzo"  onChange={handleChange} colSpan="lg:col-span-2" />
-            <InputText label="PREZZO DI CONFRONTO" name="prezzoConfronto" value={veicolo.prezzoConfronto} placeholder="Prezzo di Confronto" onChange={handleChange} colSpan="lg:col-span-2" />
+            <InputText label="PREZZO" name="prezzo" value={veicolo.prezzo} placeholder={veicoloSelezionato[0]?.prezzo}  onChange={handleChange} colSpan="lg:col-span-2" />
+            <InputText label="PREZZO DI CONFRONTO" name="prezzoConfronto" value={veicolo.prezzoConfronto} placeholder={veicoloSelezionato[0]?.prezzoConfronto} onChange={handleChange} colSpan="lg:col-span-2" />
             </div>
         </form>
         </div>
@@ -384,22 +396,5 @@ function SelectField({ label, name, value, onChange, options, colSpan }) {
         ))}
       </select>
     </div>
-  )
-}
-
-function CheckboxField({ name, label, checked, onChange }) {
-  return (
-    <label
-      className="flex items-center gap-2 border border-brand-500 px-2 py-2 rounded-xl text-[0.6rem] text-neutral-400 font-extrabold cursor-pointer"
-    >
-      <input
-        type="checkbox"
-        name={name}
-        checked={checked}
-        onChange={onChange}
-        className="w-3 h-3 text-brand-500"
-      />
-      {label}
-    </label>
   )
 }
